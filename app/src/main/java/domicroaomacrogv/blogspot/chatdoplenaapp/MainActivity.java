@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(SingletonUsuario.getInstance().getUsuario());
         }
 
-
     }
 
     public void startNewActivity(View view){
@@ -56,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             this.startActivity(normalUser);
         }
     }
+
     public void logout(View view){
         SingletonUsuario.getInstance().setUsuario(null);
         finish();
