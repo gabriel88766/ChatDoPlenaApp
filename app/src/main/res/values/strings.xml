@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ChatDoPlenaApp</string>
+    <string name="username_text">Nome de usuário</string>
+    <string name="username_field">plenamente123</string>
+    <string name="password_text">Senha</string>
+    <string name="password_field">••••••••</string>
+    <string name="button_entrar">Entrar</string>
+    <string name="plena">PLENA</string>
+    <string name="restart_logged">Você está logado como</string>
+    <string name="logout">Deslogar</string>
+</resources>
