@@ -8,4 +8,8 @@
     <string name="plena">PLENA</string>
     <string name="restart_logged">Você está logado como</string>
     <string name="logout">Deslogar</string>
+    <string name="user_management">Gerenciamento de Usuário</string>
+    <string name="room_management">Gerenciamento de Salas</string>
+    <string name="admin_chat">Chat</string>
+    <string name="main_title">Chat do Plena</string>
 </resources>
