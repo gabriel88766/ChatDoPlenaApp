@@ -36,4 +36,17 @@
         android:onClick="logout"
         android:text="@string/logout"
         android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button2"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="80dp"
+        android:background="@drawable/my_button"
+        android:onClick="voltar"
+        android:text="@string/backToMenu"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

@@ -14,7 +14,13 @@ public class AdminSignedIn extends AppCompatActivity {
     }
 
     public void onClickChat (View view) {
-        Intent chat = new Intent(this, ChatActivity.class);
+        Intent chat = new Intent(this, ListRoom.class);
         this.startActivity(chat);
+    }
+    public void logout(View view){
+        SingletonUsuario.getInstance().logout();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

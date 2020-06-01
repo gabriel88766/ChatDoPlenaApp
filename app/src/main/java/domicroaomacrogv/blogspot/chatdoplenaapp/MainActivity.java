@@ -1,25 +1,20 @@
 package domicroaomacrogv.blogspot.chatdoplenaapp;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.net.IDN;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean admin,autenticado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     @Override
@@ -27,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         if(SingletonUsuario.getInstance().getUsuario()!=null){
             setContentView(R.layout.secondary_login);
-            TextView textView = (TextView) findViewById(R.id.textView5);
+            TextView textView = findViewById(R.id.textView5);
             textView.setText(SingletonUsuario.getInstance().getUsuario());
         }
 
@@ -35,21 +30,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void startNewActivity(View view){
         Intent adminUser = new Intent(this, AdminSignedIn.class); //Nova activity caso o user seja admin
-        Intent normalUser = new Intent(this, NormalUser.class); //Nova activity caso o user seja normal
+        Intent normalUser = new Intent(this, ListRoom.class); //Nova activity caso o user seja normal
         String user  = getEditText(R.id.editText);
         String password = getEditText(R.id.editText2);
 
         //Aqui se faz a autenticação
-        autenticado=true;
-        admin=true;
+        SingletonUsuario.getInstance().setIsAutenticado(true);
+        SingletonUsuario.getInstance().setIsAdmin(true);
 
-        if(!autenticado){
-            setDialog();
+        //verifica se não está autenticado
+        if(!SingletonUsuario.getInstance().isAutenticado()){
+            loginFailDialog();
             return;
         }
 
         SingletonUsuario.getInstance().setUsuario(user);
-        if(admin) {
+        if(SingletonUsuario.getInstance().isAdmin()) {
             this.startActivity(adminUser);
         }else{
             this.startActivity(normalUser);
@@ -57,18 +53,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logout(View view){
-        SingletonUsuario.getInstance().setUsuario(null);
+        SingletonUsuario.getInstance().logout();
         finish();
         startActivity(getIntent());
     }
 
+    public void voltar(View view){
+        if(SingletonUsuario.getInstance().isAdmin()) {
+            this.startActivity(new Intent(this, AdminSignedIn.class));
+        }else{
+            this.startActivity(new Intent(this, ListRoom.class));
+        }
+    }
+
     //Métodos auxiliares
     private String getEditText(int id){
-        EditText userInput = (EditText)findViewById(id);
-        String user = userInput.getText().toString();
-        return user;
+        EditText userInput = findViewById(id);
+        return userInput.getText().toString();
     }
-    private void setDialog(){
+    private void loginFailDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Login Falhou");
         builder.setMessage("Login e/ou senha incorretos");

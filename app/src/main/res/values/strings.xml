@@ -12,4 +12,5 @@
     <string name="room_management">Gerenciamento de Salas</string>
     <string name="admin_chat">Chat</string>
     <string name="main_title">Chat do Plena</string>
+    <string name="backToMenu">Voltar ao Menu</string>
 </resources>

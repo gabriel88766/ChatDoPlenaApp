@@ -1,24 +1,52 @@
 package domicroaomacrogv.blogspot.chatdoplenaapp;
 
-public class SingletonUsuario {
+class SingletonUsuario {
 
     private static SingletonUsuario instance = null;
-    private static String usuario;
+    private String usuario;
+    private boolean autenticado;
+    private boolean admin;
+    private String room_selected;
 
-    public static SingletonUsuario getInstance() {
+    static SingletonUsuario getInstance() {
         if (instance == null) {
             return instance = new SingletonUsuario();
         } else {
             return instance;
         }
     }
-
-    public void setUsuario(String usuario) {
-        SingletonUsuario.usuario = usuario;
+    void logout(){
+        this.usuario=null;
+        this.autenticado=false;
+        this.admin=false;
+        this.room_selected=null;
     }
 
-    public String getUsuario() {
-        return SingletonUsuario.usuario;
+    // getters and setters
+    void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
+    String getUsuario() {
+        return this.usuario;
+    }
+    void setIsAdmin(boolean admin){
+       this.admin=admin;
+    }
+    boolean isAdmin(){
+        return this.admin;
+    }
+    void setIsAutenticado(boolean autenticado){
+        this.autenticado=autenticado;
+    }
+    boolean isAutenticado(){
+        return this.autenticado;
+    }
+    void selectRoom(String room){
+        this.room_selected=room;
+    }
+    String getSelectedRoom(){
+        return this.room_selected;
+    }
+
 }
 
