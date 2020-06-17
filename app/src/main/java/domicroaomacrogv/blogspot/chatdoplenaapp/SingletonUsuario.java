@@ -16,10 +16,10 @@ class SingletonUsuario {
         }
     }
     void logout(){
-        this.usuario=null;
-        this.autenticado=false;
-        this.admin=false;
-        this.room_selected=null;
+        setUsuario(null);
+        setIsAutenticado(false);
+        setIsAdmin(false);
+        selectRoom(null);
     }
 
     // getters and setters
@@ -47,6 +47,5 @@ class SingletonUsuario {
     String getSelectedRoom(){
         return this.room_selected;
     }
-
 }
 

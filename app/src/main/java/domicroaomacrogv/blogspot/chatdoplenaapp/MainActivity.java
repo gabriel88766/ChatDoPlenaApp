@@ -10,32 +10,31 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String URL_ADD = "http://10.0.2.2:8081"; //url para localhost:8081. Deve conter http:// para ser bem formada
 
-    RequestQueue requestQueue;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CookieManager manager = new CookieManager();
+        CookieHandler.setDefault( manager  );
         setContentView(R.layout.activity_main);
-        requestQueue = Volley.newRequestQueue(this);
-        requestQueue.start();
+
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (SingletonUsuario.getInstance().getUsuario() != null) {
+        if (SingletonUsuario.getInstance().isAutenticado()) {
             setContentView(R.layout.secondary_login);
             TextView textView = findViewById(R.id.textView5);
             textView.setText(SingletonUsuario.getInstance().getUsuario());
@@ -43,13 +42,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        new StringRequest(Request.Method.GET, URL_ADD + "/logout", null, null);
+    }
     public void startNewActivity(View view) {
 
         String user = getEditText(R.id.editText);
         String password = getEditText(R.id.editText2);
 
         //desativar o botão para evitar múltiplos clicks
-        Button btn = (Button) findViewById(R.id.button);
+        Button btn = findViewById(R.id.button);
         btn.setEnabled(false);
 
         loginUser(user,password);
@@ -92,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                         Button btn = (Button) findViewById(R.id.button);
                         btn.setEnabled(true);
                     }else{
+                        SingletonUsuario.getInstance().setIsAutenticado(true);
                         loginDialog(response);
                     }
                 },
@@ -106,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 return "application/json";
             }
         };
-        requestQueue.add(stringRequest);
+        SingletonRequestQueue.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     private void loginFailDialog() {
