@@ -1,26 +1,41 @@
 package domicroaomacrogv.blogspot.chatdoplenaapp;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String URL_ADD = "http://10.0.2.2:8081"; //url para localhost:8081. Deve conter http:// para ser bem formada
+
+    RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.start();
     }
 
     @Override
-    protected void onRestart(){
+    protected void onRestart() {
         super.onRestart();
-        if(SingletonUsuario.getInstance().getUsuario()!=null){
+        if (SingletonUsuario.getInstance().getUsuario() != null) {
             setContentView(R.layout.secondary_login);
             TextView textView = findViewById(R.id.textView5);
             textView.setText(SingletonUsuario.getInstance().getUsuario());
@@ -28,50 +43,73 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void startNewActivity(View view){
-        Intent adminUser = new Intent(this, AdminSignedIn.class); //Nova activity caso o user seja admin
-        Intent normalUser = new Intent(this, ListRoom.class); //Nova activity caso o user seja normal
-        String user  = getEditText(R.id.editText);
+    public void startNewActivity(View view) {
+
+        String user = getEditText(R.id.editText);
         String password = getEditText(R.id.editText2);
 
-        //Aqui se faz a autenticação
-        SingletonUsuario.getInstance().setIsAutenticado(true);
-        SingletonUsuario.getInstance().setIsAdmin(true);
+        //desativar o botão para evitar múltiplos clicks
+        Button btn = (Button) findViewById(R.id.button);
+        btn.setEnabled(false);
 
-        //verifica se não está autenticado
-        if(!SingletonUsuario.getInstance().isAutenticado()){
-            loginFailDialog();
-            return;
-        }
+        loginUser(user,password);
 
         SingletonUsuario.getInstance().setUsuario(user);
-        if(SingletonUsuario.getInstance().isAdmin()) {
-            this.startActivity(adminUser);
-        }else{
-            this.startActivity(normalUser);
-        }
     }
 
-    public void logout(View view){
+    public void logout(View view) {
         SingletonUsuario.getInstance().logout();
         finish();
         startActivity(getIntent());
     }
 
-    public void voltar(View view){
-        if(SingletonUsuario.getInstance().isAdmin()) {
+    public void voltar(View view) {
+        if (SingletonUsuario.getInstance().isAdmin()) {
             this.startActivity(new Intent(this, AdminSignedIn.class));
-        }else{
+        } else {
             this.startActivity(new Intent(this, ListRoom.class));
         }
     }
 
-    //Métodos auxiliares
-    private String getEditText(int id){
+    private String getEditText(int id) {
         EditText userInput = findViewById(id);
         return userInput.getText().toString();
     }
-    private void loginFailDialog(){
+
+    public void loginUser(String user, String password) {
+        JSONObject body = new JSONObject();
+        try {
+            body.put("username",user);
+            body.put("password",password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ADD + "/login",
+                response -> {
+                    if(response.equals("NOT_LOGGED")){
+                        loginFailDialog();
+                        Button btn = (Button) findViewById(R.id.button);
+                        btn.setEnabled(true);
+                    }else{
+                        loginDialog(response);
+                    }
+                },
+                error -> FailToConnectDialog()) {
+            @Override
+            public byte[] getBody() {
+                return body.toString().getBytes();
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+
+    private void loginFailDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Login Falhou");
         builder.setMessage("Login e/ou senha incorretos");
@@ -80,6 +118,32 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private void loginDialog(String response) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Bem vindo");
+        builder.setMessage(SingletonUsuario.getInstance().getUsuario());
+        builder.setPositiveButton("OK", (dialog, id) -> {
+            if(response.equals("ADMIN")){
+                SingletonUsuario.getInstance().setIsAdmin(true);
+                startActivity(new Intent(getBaseContext(),AdminSignedIn.class));
+            }else if(response.equals("REGULAR")){
+                SingletonUsuario.getInstance().setIsAdmin(false);
+                startActivity(new Intent(getBaseContext(),ListRoom.class));
+            }else{
+                loginFailDialog();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
-
+    private void FailToConnectDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Erro na conexão");
+        builder.setPositiveButton("OK",null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }
+
+
