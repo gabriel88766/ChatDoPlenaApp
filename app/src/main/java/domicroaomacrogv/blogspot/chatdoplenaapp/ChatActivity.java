@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import io.reactivex.CompletableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -34,7 +32,7 @@ import static domicroaomacrogv.blogspot.chatdoplenaapp.MainActivity.URL_ADD;
 public class ChatActivity extends AppCompatActivity {
 
     ListView list;
-    ArrayAdapter<String> adapter;
+    ChatArrayAdapter adapter;
 
     ArrayList<String> messagesNow;
     ArrayList<String> sender;
@@ -46,6 +44,7 @@ public class ChatActivity extends AppCompatActivity {
     private CompositeDisposable compositeDisposable;
     String newMessageReceived;
     String newMessageSend;
+    String newSender;
     EditText editText;
     JSONObject newJSONMessage;
 
@@ -79,10 +78,8 @@ public class ChatActivity extends AppCompatActivity {
 
     void makeMessagesListView(){
 
-        ArrayList<String> createLv = new ArrayList<>();
-        createLv.add("Wait...");
         list = findViewById(R.id.listview);
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,createLv);
+        adapter = new ChatArrayAdapter(this,R.layout.item_send);
         list.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         list.setAdapter(adapter);
         adapter.registerDataSetObserver(new DataSetObserver() {
@@ -96,12 +93,10 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     void updateListView() {
-        adapter.add(newMessageReceived);
-        adapter.notifyDataSetChanged();
-    }
-    void createListView(){
-        adapter.clear();
-        adapter.addAll(messagesNow);
+        boolean left;
+        left = newSender.equals(username);
+        ChatMessage newChatMessage = new ChatMessage(newMessageReceived,left);
+        adapter.add(newChatMessage);
         adapter.notifyDataSetChanged();
     }
 
@@ -114,15 +109,15 @@ public class ChatActivity extends AppCompatActivity {
                             messagesNow.clear();
                             sender.clear();
                             for (int i = 0; i < response.length(); i++) {
-                                JSONObject currentRoom = response.getJSONObject(i);
-                                messagesNow.add(currentRoom.getString("content"));
-                                sender.add(currentRoom.getString("username")); //modificar para se adequar.
+                                JSONObject currentMessage = response.getJSONObject(i);
+                                newMessageReceived=currentMessage.getString("content");
+                                newSender=currentMessage.getString("username");
+                                if(!newSender.equals(username))
+                                    newMessageReceived=newSender+":"+newMessageReceived;
+                                updateListView();
                             }
 
-                        }else{
-                            messagesNow = new ArrayList<>(Collections.singletonList("Nenhuma mensagem encontrada"));
                         }
-                        createListView();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -153,6 +148,8 @@ public class ChatActivity extends AppCompatActivity {
     public void sendMessage(View view) {
         if (!mStompClient.isConnected()) return;
         newMessageSend = editText.getText().toString();
+        if(newMessageSend.isEmpty())
+            return;
         editText.setText("");
         JSONObject temp  = new JSONObject();
 
@@ -201,6 +198,7 @@ public class ChatActivity extends AppCompatActivity {
                     newJSONMessage = new JSONObject(topicMessage.getPayload());
                     try{
                         newMessageReceived = newJSONMessage.getString("content");
+                        newSender = newJSONMessage.getString("username");
                         // linha onde podemos saber o remetente newJSONMessage.getInt("username")
                         updateListView();
                     }catch(JSONException e){
