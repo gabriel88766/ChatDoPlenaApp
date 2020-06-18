@@ -57,6 +57,7 @@
         android:labelFor="@id/send_bt"
         android:paddingHorizontal="20dp"
         android:textSize="36sp"
+        android:hint="@string/send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/send_bt" />
@@ -67,8 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/my_button"
-        android:focusableInTouchMode="true"
-        android:onClick="send"
+        android:onClick="sendMessage"
         android:text="@string/plena"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"

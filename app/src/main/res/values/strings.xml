@@ -14,4 +14,5 @@
     <string name="main_title">Chat do Plena</string>
     <string name="backToMenu">Voltar ao Menu</string>
     <string name="allRooms">SALAS</string>
+    <string name="send">Digite algo…</string>
 </resources>
