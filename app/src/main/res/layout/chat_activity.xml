@@ -31,11 +31,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/constLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
         android:background="?android:attr/colorBackground"
-        app:layout_constraintBottom_toTopOf="@id/edit_chat"
+        app:layout_constraintBottom_toTopOf="@id/send_bt"
         app:layout_constraintCircleRadius="20dp"
         app:layout_constraintTop_toBottomOf="@id/button6"
         tools:layout_editor_absoluteX="10dp">
@@ -51,18 +52,19 @@
     <EditText
         android:id="@+id/edit_chat"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="10dp"
         android:autofillHints="@string/admin_chat"
         android:background="@drawable/rounded_login"
+        android:hint="@string/send"
         android:inputType="text"
         android:labelFor="@id/send_bt"
         android:paddingHorizontal="20dp"
-        android:textSize="36sp"
-        android:hint="@string/send"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/send_bt" />
+        app:layout_constraintStart_toEndOf="@id/send_bt"
+        app:layout_constraintTop_toBottomOf="@id/constLayout" />
 
     <Button
         android:id="@+id/send_bt"
