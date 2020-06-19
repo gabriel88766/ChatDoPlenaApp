@@ -112,8 +112,7 @@ public class ChatActivity extends AppCompatActivity {
                                 JSONObject currentMessage = response.getJSONObject(i);
                                 newMessageReceived=currentMessage.getString("content");
                                 newSender=currentMessage.getString("username");
-                                if(!newSender.equals(username))
-                                    newMessageReceived=newSender+":"+newMessageReceived;
+                                checkSender();
                                 updateListView();
                             }
 
@@ -143,6 +142,11 @@ public class ChatActivity extends AppCompatActivity {
                     }
                                       },error -> { /*Nothing to do */});
         SingletonRequestQueue.getInstance(this).addToRequestQueue(request);
+    }
+
+    void checkSender(){
+        if(!newSender.equals(username))
+            newMessageReceived=newSender+":"+newMessageReceived;
     }
 
     public void sendMessage(View view) {
@@ -199,7 +203,7 @@ public class ChatActivity extends AppCompatActivity {
                     try{
                         newMessageReceived = newJSONMessage.getString("content");
                         newSender = newJSONMessage.getString("username");
-                        // linha onde podemos saber o remetente newJSONMessage.getInt("username")
+                        checkSender();
                         updateListView();
                     }catch(JSONException e){
                         e.printStackTrace();
