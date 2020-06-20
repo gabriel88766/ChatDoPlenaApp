@@ -1,7 +1,9 @@
 package domicroaomacrogv.blogspot.chatdoplenaapp;
 
 import android.database.DataSetObserver;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +46,7 @@ public class ChatActivity extends AppCompatActivity {
     private CompositeDisposable compositeDisposable;
     String newMessageReceived;
     String newMessageSend;
+    boolean newMessage;
     String newSender;
     EditText editText;
     JSONObject newJSONMessage;
@@ -52,7 +55,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
-        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws"+URL_ADD.substring(4)+"/mywebsockets/websocket");
+        mStompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP,"ws" + URL_ADD.substring(4) + "/mywebsockets/websocket");
         getChatInfo();
         TextView room = findViewById(R.id.textView6);
         room.setText(SingletonUsuario.getInstance().getSelectedRoom());
@@ -60,11 +63,11 @@ public class ChatActivity extends AppCompatActivity {
         sender = new ArrayList<>();
         makeMessagesListView();
         getMessages();
-
         resetSubscriptions();
 
         editText = findViewById(R.id.edit_chat);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -72,11 +75,11 @@ public class ChatActivity extends AppCompatActivity {
         if (compositeDisposable != null) compositeDisposable.dispose();
     }
 
-    public void back(View view){
-         finish();
+    public void back(View view) {
+        finish();
     }
 
-    void makeMessagesListView(){
+    void makeMessagesListView() {
 
         list = findViewById(R.id.listview);
         adapter = new ChatArrayAdapter(this,R.layout.item_send);
@@ -93,69 +96,72 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     void updateListView() {
-        boolean left;
-        left = newSender.equals(username);
-        ChatMessage newChatMessage = new ChatMessage(newMessageReceived,left);
+        boolean send;
+        send = newSender.equals(username);
+        if(newMessage) sound(send);
+        ChatMessage newChatMessage = new ChatMessage(newMessageReceived,send);
         adapter.add(newChatMessage);
         adapter.notifyDataSetChanged();
     }
 
 
     void getMessages() {
+        newMessage=false;
         JsonArrayRequest request = new JsonArrayRequest
-                (Request.Method.GET, URL_ADD+"/messages",null, response -> {
+                (Request.Method.GET,URL_ADD + "/messages",null,response -> {
                     try {
-                        if(response.length()!=0) {
+                        if (response.length() != 0) {
                             messagesNow.clear();
                             sender.clear();
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject currentMessage = response.getJSONObject(i);
-                                newMessageReceived=currentMessage.getString("content");
-                                newSender=currentMessage.getString("username");
+                                newMessageReceived = currentMessage.getString("content");
+                                newSender = currentMessage.getString("username");
                                 checkSender();
                                 updateListView();
                             }
-
+                            newMessage=true;
                         }
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }, error -> {
+                },error -> {
                     //Nada a fazer
                 });
         SingletonRequestQueue.getInstance(this).addToRequestQueue(request);
     }
-    void getChatInfo(){
+
+    void getChatInfo() {
         JsonObjectRequest request =
                 new JsonObjectRequest(Request.Method.GET,
-                                      URL_ADD+"/chatInfo",null,
-                                      response-> {
-                    try{
-                        userId = response.getInt("userId");
-                        roomId = response.getInt("roomId");
-                        username = response.getString("username");
-                        roomName = response.getString("roomName");
-                        subscribe();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                                      URL_ADD + "/chatInfo",null,
+                                      response -> {
+                                          try {
+                                              userId = response.getInt("userId");
+                                              roomId = response.getInt("roomId");
+                                              username = response.getString("username");
+                                              roomName = response.getString("roomName");
+                                              subscribe();
+                                          } catch (JSONException e) {
+                                              e.printStackTrace();
+                                          }
                                       },error -> { /*Nothing to do */});
         SingletonRequestQueue.getInstance(this).addToRequestQueue(request);
     }
 
-    void checkSender(){
-        if(!newSender.equals(username))
-            newMessageReceived=newSender+":"+newMessageReceived;
+    void checkSender() {
+        if (!newSender.equals(username))
+            newMessageReceived = newSender + ":" + newMessageReceived;
     }
 
     public void sendMessage(View view) {
         if (!mStompClient.isConnected()) return;
         newMessageSend = editText.getText().toString();
-        if(newMessageSend.isEmpty())
+        if (newMessageSend.isEmpty())
             return;
         editText.setText("");
-        JSONObject temp  = new JSONObject();
+        JSONObject temp = new JSONObject();
 
         try {
             temp.put("userId",userId);
@@ -195,17 +201,17 @@ public class ChatActivity extends AppCompatActivity {
 
         compositeDisposable.add(dispLifecycle);
 
-        Disposable dispTopic = mStompClient.topic("/topic/"+roomId)
+        Disposable dispTopic = mStompClient.topic("/topic/" + roomId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(topicMessage -> {
                     newJSONMessage = new JSONObject(topicMessage.getPayload());
-                    try{
+                    try {
                         newMessageReceived = newJSONMessage.getString("content");
                         newSender = newJSONMessage.getString("username");
                         checkSender();
                         updateListView();
-                    }catch(JSONException e){
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },throwable -> Log.d("fail","Error on subscribe topic",throwable));
@@ -228,5 +234,16 @@ public class ChatActivity extends AppCompatActivity {
                 .unsubscribeOn(Schedulers.newThread())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public void sound(boolean send) {
+        new Handler().postDelayed(() -> {
+            MediaPlayer mp;
+            if(send) mp = MediaPlayer.create(ChatActivity.this, R.raw.send);
+            else mp = MediaPlayer.create(ChatActivity.this, R.raw.receive);
+            mp.setOnCompletionListener(MediaPlayer::release);
+            mp.start();
+        }
+                ,200);
     }
 }
