@@ -20,7 +20,7 @@ import java.net.CookieManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String URL_ADD = "http://192.168.1.105:8081"; //url para localhost:8081. Deve conter http:// para ser bem formada
+    public static final String URL_ADD = "http://35.247.241.53:8081"; //url para localhost:8081. Deve conter http:// para ser bem formada
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
