@@ -13,10 +13,21 @@ public class AdminSignedIn extends AppCompatActivity {
         setContentView(R.layout.activity_admin_signed_in);
     }
 
+    public void onClickUser (View view) {
+        Intent userIntent = new Intent(this, UserManagement.class);
+        this.startActivity(userIntent);
+    }
+
+    public void onClickRoom (View view) {
+        Intent roomIntent = new Intent(this, RoomManagement.class);
+        this.startActivity(roomIntent);
+    }
+
     public void onClickChat (View view) {
         Intent chat = new Intent(this, ListRoom.class);
         this.startActivity(chat);
     }
+
     public void logout(View view){
         SingletonUsuario.getInstance().logout();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);

@@ -15,4 +15,11 @@
     <string name="backToMenu">Voltar ao Menu</string>
     <string name="allRooms">SALAS</string>
     <string name="send">Digite algo…</string>
+    <string name="create_user">Criar usuário</string>
+    <string name="remove_user">Remover usuário</string>
+    <string name="change_user">Alterar usuário</string>
+    <string name="create_room">Criar sala</string>
+    <string name="remove_room">Remover sala</string>
+    <string name="add_user_to_room">Adicionar usuário a uma sala</string>
+    <string name="remove_user_from_room">Remover usuário de uma sala</string>
 </resources>

@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ChatActivity" />
+        <activity android:name=".UserManagement"/>
+        <activity android:name=".RoomManagement"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

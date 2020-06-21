@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".AdminSignedIn">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/admin_main_page"
@@ -18,14 +16,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bt_user_management"/>
+        app:layout_constraintBottom_toTopOf="@id/bt_room_create"/>
 
     <Button
-        android:id="@+id/bt_user_management"
+        android:id="@+id/bt_room_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/user_management"
-        android:onClick="onClickUser"
+        android:text="@string/create_room"
         android:background="@drawable/my_button"
         android:textColor="@android:color/white"
         android:layout_marginBottom="250dp"
@@ -35,24 +32,36 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <Button
-        android:id="@+id/bt_room_management"
+        android:id="@+id/bt_room_remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/room_management"
-        android:onClick="onClickRoom"
+        android:text="@string/remove_room"
         android:textColor="@android:color/white"
         android:background="@drawable/my_button"
         android:layout_margin="10dp"
         android:paddingHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bt_user_management"/>
+        app:layout_constraintTop_toBottomOf="@id/bt_room_create"/>
 
     <Button
-        android:id="@+id/bt_admin_chat"
+        android:id="@+id/bt_add_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/admin_chat"
+        android:text="@string/add_user_to_room"
+        android:textColor="@android:color/white"
+        android:background="@drawable/my_button"
+        android:layout_margin="10dp"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_room_remove"/>
+
+    <Button
+        android:id="@+id/bt_remove_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remove_user_from_room"
         android:onClick="onClickChat"
         android:background="@drawable/my_button"
         android:textColor="@android:color/white"
@@ -61,19 +70,6 @@
         android:paddingHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bt_room_management" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/my_button"
-        android:onClick="logout"
-        android:text="@string/logout"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@id/bt_add_user" />
 
 </android.support.constraint.ConstraintLayout>
