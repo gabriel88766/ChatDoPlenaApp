@@ -1,64 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/admin_main_page"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/main_title"
+        android:text="@string/remove_user"
         android:textAlignment="center"
         android:textColor="#b0e0e6"
         android:textSize="32sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bt_user_create"/>
+        app:layout_constraintBottom_toTopOf="@id/textView"/>
 
-    <Button
-        android:id="@+id/bt_user_create"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_user"
-        android:onClick="onClickCreateUser"
-        android:background="@drawable/my_button"
+        android:text="@string/user_to_be_removed"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
+        android:textSize="18sp"
         android:layout_marginBottom="250dp"
-        android:paddingHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints="@string/username_field"
+        android:background="@drawable/rounded_login"
+        android:ems="10"
+        android:hint="@string/username_field"
+        android:inputType="textPersonName"
+        android:paddingBottom="5dp"
+        android:paddingHorizontal="15dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="#3E0E0E0E"
+        android:textSize="21sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/bt_user_remove"
+        android:id="@+id/bt_remove_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/remove_user"
+        android:text="@string/bt_remove"
         android:onClick="onClickRemoveUser"
-        android:textColor="@android:color/white"
         android:background="@drawable/my_button"
-        android:layout_margin="10dp"
+        android:textColor="@android:color/white"
         android:paddingHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bt_user_create"/>
-
-    <Button
-        android:id="@+id/bt_user_change"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/change_user"
-        android:onClick="onClickChangeUser"
-        android:background="@drawable/my_button"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="100dp"
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bt_user_remove" />
+        app:layout_constraintTop_toBottomOf="@id/editText"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -12,4 +12,19 @@ public class UserManagement extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_management);
     }
+
+    public void onClickCreateUser (View view) {
+        Intent myIntent = new Intent(this, RoomManagement.class);
+        this.startActivity(myIntent);
+    }
+
+    public void onClickRemoveUser (View view) {
+        Intent myIntent = new Intent(this, RemoveUser.class);
+        this.startActivity(myIntent);
+    }
+
+    public void onClickChangeUser (View view) {
+        Intent myIntent = new Intent(this, RoomManagement.class);
+        this.startActivity(myIntent);
+    }
 }
