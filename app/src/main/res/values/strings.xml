@@ -8,11 +8,19 @@
     <string name="plena">PLENA</string>
     <string name="restart_logged">Você está logado como</string>
     <string name="logout">Deslogar</string>
-    <string name="user_management">Gerenciamento de Usuário</string>
+    <string name="user_management">Gerenciamento de Usuários</string>
     <string name="room_management">Gerenciamento de Salas</string>
     <string name="admin_chat">Chat</string>
     <string name="main_title">Chat do Plena</string>
     <string name="backToMenu">Voltar ao Menu</string>
     <string name="allRooms">SALAS</string>
     <string name="send">Digite algo…</string>
+    <string name="add_user_label">Adicionar Usuário</string>
+    <string name="update_user_label">Atualizar Usuário</string>
+    <string name="list_users_label">Listar Usuários</string>
+    <string name="delete_user_label">Remover Usuário</string>
+    <string name="add_room_label">Adicionar Sala</string>
+    <string name="update_room_label">Atualizar Sala</string>
+    <string name="list_rooms_label">Listar Salas</string>
+    <string name="delete_room_label">Remover Sala</string>
 </resources>
