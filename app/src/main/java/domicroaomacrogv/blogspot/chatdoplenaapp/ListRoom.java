@@ -38,10 +38,9 @@ public class ListRoom extends AppCompatActivity {
 
     void getListView(){
         String url = URL_ADD+"/chats";
-        JsonArrayRequest request = new JsonArrayRequest
-                (Request.Method.GET, url,null, response -> {
+        JsonObjectRequest request = new JsonObjectRequest
+                (Request.Method.POST, url,null, response -> {
                     try {
-                        if(response.length()!=0) {
                             salas = new ArrayList<>();
                             ids = new ArrayList<>();
                             for (int i = 0; i < response.length(); i++) {
