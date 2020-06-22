@@ -9,6 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +32,7 @@ public class RemoveUser extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ADD + "/login",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
                     if(response.equals("true")){
                         result(true);

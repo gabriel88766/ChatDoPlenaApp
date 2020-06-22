@@ -19,9 +19,10 @@
     <string name="remove_user">Remover usuário</string>
     <string name="change_user">Alterar usuário</string>
     <string name="create_room">Criar sala</string>
-    <string name="remove_room">Remover sala</string>
     <string name="add_user_to_room">Adicionar usuário a uma sala</string>
     <string name="remove_user_from_room">Remover usuário de uma sala</string>
     <string name="user_to_be_removed">Usuário a ser removido</string>
     <string name="bt_remove">Remover</string>
+    <string name="remove_room">Remover sala</string>
+    <string name="room_to_be_removed">Sala a ser removida</string>
 </resources>

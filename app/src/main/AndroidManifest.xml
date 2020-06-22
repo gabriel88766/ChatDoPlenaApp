@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="domicroaomacrogv.blogspot.chatdoplenaapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".RemoveUserFromRoom"></activity>
+        <activity android:name=".AddUserToRoom" />
+        <activity android:name=".RemoveRoom" />
+        <activity android:name=".CreateUser" />
         <activity android:name=".ListRoom" />
         <activity android:name=".AdminSignedIn" />
         <activity android:name=".MainActivity">
@@ -21,12 +23,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".ChatActivity" />
-        <activity android:name=".UserManagement"/>
-        <activity android:name=".RoomManagement"/>
-        <activity android:name=".RemoveUser"/>
+        <activity android:name=".UserManagement" />
+        <activity android:name=".RoomManagement" />
+        <activity android:name=".RemoveUser" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>
