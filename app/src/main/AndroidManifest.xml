@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChangeUser"></activity>
+        <activity android:name=".ChangeEMail"></activity>
+        <activity android:name=".ChangePassword" />
+        <activity android:name=".ChangeUser" />
         <activity android:name=".CreateRoom" />
         <activity android:name=".RemoveUserFromRoom" />
         <activity android:name=".AddUserToRoom" />
