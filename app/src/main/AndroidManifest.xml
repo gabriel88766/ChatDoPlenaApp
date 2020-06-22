@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateRoom"></activity>
+        <activity android:name=".ChangeUser"></activity>
+        <activity android:name=".CreateRoom" />
         <activity android:name=".RemoveUserFromRoom" />
         <activity android:name=".AddUserToRoom" />
         <activity android:name=".RemoveRoom" />
@@ -32,8 +33,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

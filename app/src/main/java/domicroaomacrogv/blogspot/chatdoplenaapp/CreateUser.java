@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class CreateUser extends AppCompatActivity {
@@ -27,4 +28,23 @@ public class CreateUser extends AppCompatActivity {
     public boolean sucessCreatingUser() {
         return true;
     }
+
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radio_admin:
+                if (checked)
+                    // Pirates are the best
+                    break;
+            case R.id.radio_regular:
+                if (checked)
+                    // Ninjas rule
+                    break;
+        }
+    }
+
 }

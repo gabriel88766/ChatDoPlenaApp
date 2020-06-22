@@ -29,4 +29,10 @@
     <string name="room">Sala</string>
     <string name="bt_add">Adicionar</string>
     <string name="bt_create">Criar</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password_retype">Redigite a senha</string>
+    <string name="password_hint">contato@mail.com</string>
+    <string name="user_type">Tipo de usuário</string>
+    <string name="admin">Admin</string>
+    <string name="regular">Regular</string>
 </resources>

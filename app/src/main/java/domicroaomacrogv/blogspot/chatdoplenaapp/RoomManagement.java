@@ -13,22 +13,22 @@ public class RoomManagement extends AppCompatActivity {
     }
 
     public void onClickCreateRoom (View view) {
-        Intent myIntent = new Intent(this, UserManagement.class);
+        Intent myIntent = new Intent(this, CreateRoom.class);
         this.startActivity(myIntent);
     }
 
     public void onClickRemoveRoom (View view) {
-        Intent myIntent = new Intent(this, UserManagement.class);
+        Intent myIntent = new Intent(this, RemoveRoom.class);
         this.startActivity(myIntent);
     }
 
     public void onClickAddUserToRoom (View view) {
-        Intent myIntent = new Intent(this, RoomManagement.class);
+        Intent myIntent = new Intent(this, AddUserToRoom.class);
         this.startActivity(myIntent);
     }
 
     public void onClickRemoveUserFromRoom (View view) {
-        Intent myIntent = new Intent(this, RoomManagement.class);
+        Intent myIntent = new Intent(this, RemoveUserFromRoom.class);
         this.startActivity(myIntent);
     }
 }

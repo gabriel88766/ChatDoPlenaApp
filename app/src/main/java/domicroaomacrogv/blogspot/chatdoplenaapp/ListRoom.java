@@ -39,7 +39,7 @@ public class ListRoom extends AppCompatActivity {
     void getListView(){
         String url = URL_ADD+"/chats";
         JsonArrayRequest request = new JsonArrayRequest
-                (Request.Method.POST, url,null, response -> {
+                (Request.Method.GET, url,null, response -> {
                     try {
                         if(response.length()!=0) {
                             salas = new ArrayList<>();
@@ -52,7 +52,7 @@ public class ListRoom extends AppCompatActivity {
                         }else{
                             salas = new ArrayList<>(Collections.singletonList("Nenhuma sala encontrada"));
                         }
-                       updateListView();
+                        updateListView();
 
                     } catch (JSONException e) {
                         e.printStackTrace();

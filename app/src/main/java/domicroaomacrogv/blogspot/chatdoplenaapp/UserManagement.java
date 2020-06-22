@@ -14,7 +14,7 @@ public class UserManagement extends AppCompatActivity {
     }
 
     public void onClickCreateUser (View view) {
-        Intent myIntent = new Intent(this, RoomManagement.class);
+        Intent myIntent = new Intent(this, CreateUser.class);
         this.startActivity(myIntent);
     }
 
@@ -24,7 +24,7 @@ public class UserManagement extends AppCompatActivity {
     }
 
     public void onClickChangeUser (View view) {
-        Intent myIntent = new Intent(this, RoomManagement.class);
+        Intent myIntent = new Intent(this, ChangeUser.class);
         this.startActivity(myIntent);
     }
 }
