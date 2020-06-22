@@ -4,15 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class RemoveUserFromRoom extends AppCompatActivity {
+public class CreateRoom extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_remove_user_from_room);
+        setContentView(R.layout.create_room);
     }
 
-    public void onClickRemove(View view){
+    public void onClickCreateRoom (View view) {
 
     }
 }

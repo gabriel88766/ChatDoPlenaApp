@@ -25,4 +25,8 @@
     <string name="bt_remove">Remover</string>
     <string name="remove_room">Remover sala</string>
     <string name="room_to_be_removed">Sala a ser removida</string>
+    <string name="user">Usuário</string>
+    <string name="room">Sala</string>
+    <string name="bt_add">Adicionar</string>
+    <string name="bt_create">Criar</string>
 </resources>
