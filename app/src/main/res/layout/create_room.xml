@@ -57,6 +57,7 @@
         android:id="@+id/bt_remove_room"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/bt_create"
         android:onClick="onClickCreateRoom"
         android:background="@drawable/my_button"
