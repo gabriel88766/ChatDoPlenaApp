@@ -64,7 +64,6 @@ public class CreateUser extends AppCompatActivity {
         if(success)
         {
             finish();
-            this.startActivity(new Intent(this, UserManagement.class));
             Toast.makeText(this, "Usuário criado com sucesso", Toast.LENGTH_SHORT).show();
         }
         else

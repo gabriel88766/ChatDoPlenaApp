@@ -58,7 +58,6 @@ public class RemoveRoom extends AppCompatActivity {
         if(success)
         {
             finish();
-            this.startActivity(new Intent(this, RoomManagement.class));
             Toast.makeText(this, "Sala removida com sucesso", Toast.LENGTH_SHORT).show();
         }
         else

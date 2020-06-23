@@ -59,7 +59,6 @@ public class AddUserToRoom extends AppCompatActivity {
         if(success)
         {
             finish();
-            this.startActivity(new Intent(this, RoomManagement.class));
             Toast.makeText(this, "Usuário adicionado com sucesso", Toast.LENGTH_SHORT).show();
         }
         else

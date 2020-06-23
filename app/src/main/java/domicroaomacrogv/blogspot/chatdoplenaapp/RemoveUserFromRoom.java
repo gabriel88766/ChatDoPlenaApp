@@ -59,7 +59,6 @@ public class RemoveUserFromRoom extends AppCompatActivity {
         if(success)
         {
             finish();
-            this.startActivity(new Intent(this, RoomManagement.class));
             Toast.makeText(this, "Usuário removido com sucesso", Toast.LENGTH_SHORT).show();
         }
         else
